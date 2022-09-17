@@ -2,7 +2,7 @@
 
 ## Description
     
-lorem ipsum
+This is my project
     
 ## Table of Contents
     
@@ -15,15 +15,15 @@ lorem ipsum
    
 ## Installation
     
-lorem ipsum
+Run the node index.js
     
 ## Usage
     
-lorem ipsum
+Enter information to the prompts to have it automatically formatted
 
 ## License
     
-License 1
+Boost Software License 1.0
     
 ## Contributing
     
@@ -31,8 +31,8 @@ undefined
     
 ## Tests
     
-Does not currently use any testing procedures
+Currently, there are no formalized tests written for the project
     
 ##Contact Me
     
-Reach me at [GitHub](https://github.com/shanep42), or at joe@email.com
+Reach me at [GitHub](https://github.com/shanep42), or at shanep42@gmail.com
