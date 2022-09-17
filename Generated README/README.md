@@ -1,8 +1,11 @@
-# My Project
+# My Project   [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)]https://opensource.org/licenses/Apache-2.0
+
+USER ENTERED:
+Apache 2.0
 
 ## Description
     
-This is my project
+lorem ipsum
     
 ## Table of Contents
     
@@ -15,24 +18,24 @@ This is my project
    
 ## Installation
     
-Run the node index.js
+lorem ipsum
     
 ## Usage
     
-Enter information to the prompts to have it automatically formatted
+lorem ipsum
 
 ## License
     
-Boost Software License 1.0
+This project uses Apache 2.0.
     
 ## Contributing
     
-undefined
+[Contributor Covenant](https://www.contributor-covenant.org/)
     
 ## Tests
     
-Currently, there are no formalized tests written for the project
+Does not currently use any testing procedures
     
-##Contact Me
+## Questions
     
-Reach me at [GitHub](https://github.com/shanep42), or at shanep42@gmail.com
+Reach me at [GitHub](https://github.com/shanep42), or at joe@email.com
