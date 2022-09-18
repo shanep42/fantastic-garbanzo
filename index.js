@@ -1,7 +1,8 @@
-// TODO: Include packages needed for this application
+// Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+// An array of objects containing reference information for the name, badge, and link to each licensing option
 const licenses = [
   {
     name: 'Apache 2.0',
@@ -165,56 +166,59 @@ const licenses = [
   }
 ]
 
+// Create array of only the name properties of licenses array, for ease of use in inquirer prompt
 var licenseName = []
 for (license of licenses) {
   licenseName.push(license.name)
 }
 
-// TODO: Create a function that returns a license badge based on which license is passed in
+// Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
   let licenseOption = licenses.find(entry => entry.name == license);
+  if (licenseOption == null || licenseOption == undefined) {
+    return ""
+  }
   return licenseOption.badge
 }
-// TODO: Create a function that returns the license link
+// Create a function that returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
   let licenseOption = licenses.find(entry => entry.name == license);
-  return licenseOption.link
+  if (licenseOption == null || licenseOption == undefined) {
+    return ""
+  }
+  // TODO: This slice is only necessary because I thought I'd be able to format a link for markdown by including () in each license.link. When that didn't work, I put added parenthesis around the string literal, but this resulted in trying to link to "(www.example.com)", with the parentheses included. I don't know why this redundant method is the only one that worked. 
+  return licenseOption.link.slice(1, -1)
 }
 
-// TODO: Create an array of questions for user input
+// Create an array of questions for user input
 inquirer
   .prompt([
     {
       type: 'input',
       message: 'Enter your project title',
-      name: 'title',
-      default: 'My Project'
+      name: 'title'
     },
     {
       type: 'input',
       message: 'Provide a short description explaining the what, why, and how of your project.',
-      name: 'description',
-      default: 'lorem ipsum'
+      name: 'description'
     },
     {
       type: 'input',
       message: 'What are the steps required to install your project?',
-      name: 'installation',
-      default: 'lorem ipsum'
+      name: 'installation'
     },
     {
       type: 'input',
       message: 'Provide instructions and examples for useage.',
-      name: 'usage',
-      default: 'lorem ipsum'
+      name: 'usage'
     },
     {
       type: 'list',
       message: 'Select a license:',
       choices: licenseName,
-      //['Apache 2.0', 'Boost Software License 1.0', 'BSD 3-Clause', 'BSD 2-Clause', 'CC0', 'Attribution 4.0 International', 'Attribution-ShareAlike 4.0 International', 'Attribution-NonCommercial 4.0 International', 'Attribution-NoDerivatives 4.0 International', 'Attribution-NonCommercial-ShareAlike 4.0 International', 'Attribution-NonCommercial-NoDerivatives 4.0 International', 'Eclipse Public License 1.0', 'GNU GPL v3', 'GNU GPL v2', 'GNU AGPL v3', 'GNU LGPL v3', 'GNU FDL v1.3', 'The Hippocratic License 2.1', 'The Hippocratic License 3.0', 'IBM Public License Version 1.0', 'ISC License (ISC)', 'The MIT License', 'Mozilla Public License 2.0', 'Attribution License (BY)', 'Open Database License (ODbL)', 'Public Domain Dedication and License (PDDL)', 'The Perl License', 'The Artistic License 2.0', 'SIL Open Font License 1.1', 'The Unlicense', 'WTFPL', 'Zlib'],
       name: 'license',
     },
     {
@@ -232,23 +236,20 @@ inquirer
     {
       type: 'input',
       message: 'For contact purposes, what is your github username?',
-      name: 'username',
-      default: 'shanep42',
+      name: 'username'
     },
     {
       type: 'input',
       message: '... and your preferred email address?',
-      name: 'email',
-      default: 'joe@email.com'
+      name: 'email'
     }
   ])
   .then((answers) =>
+
+    // Write markdown text to a README created in the designated folder, using string literals to insert the user's input.
     fs.writeFileSync('./generated README/README.md',
 
-      `# ${answers.title}   ${renderLicenseBadge(answers.license)}${renderLicenseLink(answers.license)}
-
-USER ENTERED:
-${answers.license}
+      `# ${answers.title}   ${renderLicenseBadge(answers.license)}(${renderLicenseLink(answers.license)})
 
 ## Description
     
@@ -270,7 +271,7 @@ ${answers.installation}
 ## Usage
     
 ${answers.usage}` +
-
+      // TODO: Is there a user-friendly way to allow screenshots to be included in the generated readme?
       // To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
 
       //     ```md
@@ -282,7 +283,7 @@ ${answers.usage}` +
 
 ## License
     
-This project uses ${answers.license}.
+This project uses ${answers.license} for its licensing.
     
 ## Contributing
     
@@ -294,6 +295,6 @@ ${answers.tests}
     
 ## Questions
     
-Reach me at [GitHub](https://github.com/${answers.username}), or at ${answers.email}`)
+If you have questions about this or my other projects, you can contact me at [GitHub](https://github.com/${answers.username}), or at ${answers.email}`)
 
   )
